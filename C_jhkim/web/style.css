@@ -201,3 +201,84 @@ footer{ color:#6b7280; padding:18px; text-align:center; border-top:1px solid var
 .partner-name{ margin-top:6px; font-weight:800; font-size:18px; }
 .partner-affil{ margin-top:6px; color:var(--muted); font-size:13px; line-height:1.35; }
 .menu a.active{ font-weight:800; color:#1f2937; border-bottom:2px solid #7c3aed; }
+
+
+/* ===== Customers page ===== */
+.customers-grid {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 0 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3명씩 가로 */
+  gap: 28px;
+  align-items: start; /* 높이가 서로 달라도 위쪽 정렬 */
+}
+
+.customer-card {
+  background: linear-gradient(180deg, #ffffff, #f8fbff);
+  border: 1px solid #e6efff;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 8px 26px rgba(2, 12, 27, 0.06);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+
+  /* 고정 높이 제거 → 내용에 따라 자동으로 늘어남 */
+  /* height: 350px;  <- 삭제 */
+  min-height: 150px; /* 기준 높이만 두고 */
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(2, 12, 27, 0.10);
+}
+
+.customer-card .img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* 정사각형 */
+  overflow: hidden;
+  border-radius: 12px;
+  background:
+    radial-gradient(600px 300px at 20% 15%, rgba(34, 193, 195, 0.12), transparent 40%),
+    radial-gradient(600px 300px at 80% 0%, rgba(124, 58, 237, 0.12), transparent 40%);
+
+  --scale: 0.5;
+  --headroom: 50%; /* ← 기존 10%에서 줄여서 사진을 살짝 위로 올림 */
+}
+
+.customer-card .img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% var(--headroom);
+  transform: scale(var(--scale));
+  transition: transform .2s ease, object-position .2s ease;
+}
+
+.customer-info {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.customer-name {
+  font-weight: 700;
+  color: #111827;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.customer-country,
+.customer-university,
+.customer-wallet {
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* 긴 문자열 대응(필요 시) */
+.customer-wallet { word-break: break-all; }

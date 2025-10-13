@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FrozenClock SBT</title>
+  <link rel="stylesheet" href="./style.css" />
+  <!-- Ethers v6 UMD -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- 헤더 -->
+  <header class="app-header">
+    <div class="hdr-left">
+      <h1>FrozenClock SBT</h1>
+      <nav class="menu">
+        <a href="./index.html">홈</a>
+        <a href="./product.html" class="active">제품</a>
+        <a href="./company.html">회사 소개</a>
+        <a href="./resources.html">리소스</a>
+        <a href="./jobs.html">채용</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 컨트랙트 연결 -->
+    <section id="contractBox" class="card">
+      <h3>컨트랙트 연결</h3>
+      <label>Contract Address</label>
+      <div class="row">
+        <input id="contractAddress" value="0xb20889790a26efce880d7e01d57d1dca18ee2626" />
+        <button class="btn" id="btnLoadContract">로드</button>
+      </div>
+
+      <div class="addrRow">
+        <label>Loaded</label>
+        <input id="loadedAddr" readonly />
+        <button class="btn" id="btnCopyAddr" title="주소 복사">복사</button>
+      </div>
+
+      <div id="ownerLine" class="owner-line">Owner: <span id="owner">-</span></div>
+      <div id="ownerWarn" class="warn">※ 연결된 지갑이 Owner가 아니면 민팅이 거절됩니다.</div>
+    </section>
+
+    <!-- 민팅 -->
+    <section id="mintBox" class="card">
+      <h2>민팅</h2>
+      <div class="grid">
+        <label>받는 지갑주소</label><input id="to" placeholder="0xRecipient" />
+        <label>생성ID</label><input id="extId" placeholder="예: KB-30" />
+        <label>이름</label><input id="holderName" placeholder="예: 홍길동" />
+        <label>날짜</label><input id="dateStr" placeholder="예: 2025.09.25" />
+      </div>
+      <button class="btn primary" id="btnMint">SBT 발행</button>
+      <div id="mintResult" class="mint-result"></div>
+
+      <!-- 민팅 후 토큰ID 복사칸 -->
+      <div id="mintIdCopy" class="mint-id-copy" style="display:none">
+        <input id="mintedTokenId" readonly placeholder="클릭하면 복사" title="클릭하면 복사됩니다" />
+      </div>
+    </section>
+
+    <!-- 조회 -->
+    <section id="viewBox" class="card">
+      <h2>조회</h2>
+      <div class="row">
+        <label>Token ID</label>
+        <input id="viewTokenId" placeholder="1" />
+        <button class="btn" id="btnView">tokenURI 보기</button>
+      </div>
+      <pre id="jsonOut"></pre>
+      <div><img id="imgOut" class="preview" /></div>
+    </section>
+  </main>
+
+  <footer>
+    <div>ChainId 7707 · RPC https://jkk.mst2.site · TMZ</div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
