@@ -196,7 +196,6 @@ footer{ color:#6b7280; padding:18px; text-align:center; border-top:1px solid var
   transition: transform .2s ease, object-position .2s ease;
 }
 
-
 .partner-role{ margin-top:12px; font-weight:700; color:#111827; font-size:14px; }
 .partner-name{ margin-top:6px; font-weight:800; font-size:18px; }
 .partner-affil{ margin-top:6px; color:var(--muted); font-size:13px; line-height:1.35; }
