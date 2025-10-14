@@ -1,283 +1,326 @@
-/* ===== Theme ===== */
+/* =========================================================
+   Global Dark Theme + Grand Hero (applies to ALL pages)
+   ========================================================= */
+
+/* ---- Tokens ---- */
 :root{
-  --ink:#0f172a; --muted:#6b7280; --line:#e5e7eb; --panel:#ffffff; --bg:#f8fafc;
-  /* Accent palette */
-  --c1:#22c1c3;  /* cyan */
-  --c2:#7c3aed;  /* purple */
-  --c3:#2b7bff;  /* blue   */
+  /* brand + surface */
+  --bg: #0b1018;
+  --surface: #0e1421;
+  --panel: #121829;
+  --card: #151b2b;
+  --border: #22283a;
+
+  /* text */
+  --text: #eaf0ff;
+  --muted: #b6b9d4;
+
+  /* accents */
+  --primary: #6d70ff;
+  --primary-2: #8ea2ff;
+  --accent: #86ffe3;
+
+  /* legacy aliases (기존 코드 호환) */
+  --ink: var(--text);
+  --line: var(--border);
+
+  /* misc */
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
+  --hero-height: 520px;
 }
 
+/* ---- Reset & Base ---- */
 *{ box-sizing:border-box; }
-html,body{ margin:0; padding:0; }
-body{
-  font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
-  color:var(--ink);
-  /* 페이지 전체가 살짝 컬러 기운을 띠도록 */
-  background:
-    radial-gradient(1200px 600px at -20% -10%, rgba(124,58,237,.06), transparent 60%),
-    radial-gradient(1200px 600px at 120% -10%, rgba(43,123,255,.06), transparent 60%),
-    radial-gradient(1000px 700px at 50% 120%, rgba(34,193,195,.06), transparent 60%),
-    var(--bg);
-}
+html,body{ margin:0; padding:0; height:100% }
 a{ color:inherit; text-decoration:none; }
 
-/* ===== Header ===== */
+body{
+  font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans KR",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(109,112,255,.18), transparent 60%),
+    radial-gradient(800px 400px at 10% 20%, rgba(134,255,227,.10), transparent 60%),
+    var(--bg);
+}
+
+/* ---- Layout ---- */
+.container{ width:min(1100px, 92vw); margin:0 auto; padding:0 18px; }
+.row{ display:flex; gap:10px; align-items:center; }
+
+/* =========================================================
+   GLOBAL HERO (자동 삽입)
+   - 모든 페이지의 <main> 맨 위에 배경 히어로를 만들어줍니다.
+   - 특정 페이지가 명시적 .hero-visual 섹션을 갖고 있으면 숨김.
+   ========================================================= */
+main::before{
+  content:"";
+  display:block;
+  height:var(--hero-height);
+  /* 이미지 + 그라디언트 오버레이(읽기성 확보) */
+  background-image:
+    radial-gradient(1200px 400px at 10% 0%, rgba(0,255,234,.25), transparent 55%),
+    radial-gradient(1200px 400px at 100% -10%, rgba(124,58,237,.28), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.65) 48%, rgba(2,8,20,.92) 85%, #0b111a 100%),
+    url("./assets/customer/namgeuk.jpg");
+  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center, center, center, 50% 25%;
+  background-repeat: no-repeat;
+  filter: saturate(.95) contrast(1.02);
+  border-bottom:1px solid var(--border);
+}
+
+.hero-visual + main::before,
+.hero-visual ~ main::before,
+main:has(.hero-visual)::before { 
+  display: none !important; 
+}
+
+/* 페이지에 명시적 히어로(.hero-visual)가 있으면 기본 히어로 제거 */
+main:has(.hero-visual)::before{ display:none; }
+
+/* =========================================================
+   Header (Dark)
+   ========================================================= */
 .app-header{
-  position:sticky; top:0; z-index:10;
+  position: sticky; top:0; z-index: 100;
   display:flex; align-items:center; justify-content:space-between; gap:16px;
   padding:14px 22px;
-  background:
-    radial-gradient(1000px 300px at 10% 0%, rgba(34,193,195,.22), transparent 45%),
-    radial-gradient(1000px 300px at 90% 0%, rgba(124,58,237,.18), transparent 45%),
-    linear-gradient(180deg,#ffffff,#fafcff);
-  border-bottom:1px solid var(--line);
-  box-shadow:0 3px 18px rgba(2,12,27,.05);
+  backdrop-filter: blur(10px);
+  background: color-mix(in oklab, var(--bg) 85%, transparent);
+  border-bottom:1px solid var(--border);
 }
 .hdr-left{ display:flex; align-items:center; gap:16px; }
 .app-header h1{ margin:0; font-size:22px; font-weight:800; letter-spacing:.2px; }
+
 .menu{ display:flex; gap:14px; }
-.menu a{ padding:6px 8px; border-radius:8px; color:#374151; }
-.menu a:hover{ background:#f3f4f6; }
+.menu a{
+  padding:8px 10px; border-radius:8px; color:var(--muted);
+}
+.menu a:hover{ color:var(--text); background:rgba(255,255,255,.05) }
+.menu a.active{ color:var(--text); background:rgba(109,112,255,.18) }
 
 .hdr-right{ display:flex; align-items:center; gap:8px; }
 
-/* ===== Chips (Net / Acc) ===== */
-.chip{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:6px 10px; border-radius:9999px; font-size:13px;
-  background:linear-gradient(180deg,#f0f9ff,#eff6ff);
-  border:1px solid #bfdbfe;
-}
-.chip .muted{ color:#9ca3af; }
-
-/* ===== Buttons ===== */
+/* =========================================================
+   Buttons (Dark)
+   ========================================================= */
 .btn{
-  padding:8px 12px; border-radius:10px; cursor:pointer;
-  /* 기본 버튼도 흰색이 아니라 연톤 그라디언트 */
-  background:linear-gradient(180deg,#eff6ff,#eaf0ff);
-  border:1px solid #c7d2fe; color:#1f2937;
+  display:inline-block;
+  padding:10px 14px; border-radius:10px; cursor:pointer;
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  border:1px solid var(--border); color:var(--text);
+  box-shadow: var(--shadow);
   transition: filter .15s ease, transform .05s ease, box-shadow .15s ease;
 }
-.btn:hover{ filter:brightness(1.02); box-shadow:0 2px 6px rgba(37,99,235,.15); }
-.btn:active{ transform:translateY(1px); }
+.btn:hover{ filter:brightness(1.05) }
+.btn:active{ transform:translateY(1px) }
 
 .btn.primary{
-  color:#fff; border:none;
-  background-image:linear-gradient(135deg,var(--c3),var(--c2));
-  background-size:200% 200%;
-  box-shadow:0 6px 14px rgba(43,123,255,.25);
+  border-color: color-mix(in oklab, var(--primary), black 20%);
+  background: linear-gradient(180deg, var(--primary), color-mix(in oklab, var(--primary), black 10%));
+  color:#0b0f17;
 }
-.btn.primary:hover{ filter:brightness(1.03); }
 .btn.outline{
-  background:linear-gradient(180deg,#f5faff,#f0f9ff);
-  border:1px solid #93c5fd;
+  background:transparent;
+  border-color: color-mix(in oklab, var(--primary), white 65%);
 }
-.btn.ghost{ background:transparent; border:1px solid var(--line); }
+.btn.ghost{
+  background:transparent; border:1px solid var(--border);
+}
 
-/* ===== Layout ===== */
-.container{ max-width:1100px; margin:20px auto 32px; padding:0 18px; }
-
-/* ===== Cards / Forms ===== */
+/* =========================================================
+   Cards / Forms (Dark)
+   ========================================================= */
 .card{
-  background:linear-gradient(180deg,#ffffff,#fbfdff);
-  border:1px solid #e6efff; border-radius:16px;
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
   padding:18px; margin:18px 0;
-  box-shadow:0 10px 30px rgba(2,12,27,.06);
+  box-shadow: var(--shadow);
 }
+label{ color:var(--muted); min-width:120px; }
 .grid{ display:grid; grid-template-columns:180px 1fr; gap:10px 12px; align-items:center; }
-.row{ display:flex; gap:10px; align-items:center; }
-label{ color:#475569; min-width:120px; }
 
-/* Inputs */
 input{
   width:100%; padding:10px 12px; border-radius:10px;
-  background:linear-gradient(180deg,#ffffff,#f8fbff);
-  border:1px solid #dbeafe;
+  background:linear-gradient(180deg,#0e1421,#0b111a);
+  border:1px solid #2a3146; color:var(--text);
   outline:none; transition:border-color .15s, box-shadow .15s;
 }
-input::placeholder{ color:#9ca3af; }
-input:focus{ border-color:#b4c6fc; box-shadow:0 0 0 3px rgba(43,123,255,.15); }
+input::placeholder{ color:#8f95b2 }
+input:focus{ border-color:#3d4b7f; box-shadow:0 0 0 3px rgba(109,112,255,.25) }
 
-.addrRow{ display:flex; gap:8px; align-items:center; margin-top:10px; }
-.addrRow label{ min-width:120px; }
-.addrRow input{ flex:1; }
-
-.owner-line{ margin-top:10px; }
-.warn{ color:#ef4444; font-size:.92rem; margin-top:6px; }
-.mint-result{ margin-top:10px; font-weight:700; color:#16a34a; }
-
-/* Copy token id */
-.mint-id-copy{ margin-top:8px; }
-.mint-id-copy input{ max-width:220px; cursor:pointer; }
-.mint-id-copy input.copied{ outline:2px solid #22c1c3; }
-
-/* JSON viewer + preview */
 pre{
   background:#0b1120; color:#e2e8f0; border-radius:12px; padding:12px;
   max-width:100%; overflow:auto; border:1px solid #111827;
 }
-.preview{ max-width:480px; border:1px solid var(--line); }
+.preview{ max-width:480px; border:1px solid var(--border); }
 
-/* Footer */
-footer{ color:#6b7280; padding:18px; text-align:center; border-top:1px solid var(--line); }
-
-/* ===== Partners page ===== */
-.partners-hero { max-width:1100px; margin:22px auto 12px; }
-.partners-grid{
-  max-width:1100px; margin:0 auto 40px; padding:0 18px;
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:28px;
-}
-.partner-card{
-  background:linear-gradient(180deg,#ffffff,#f8fbff);
-  border:1px solid #e6efff; border-radius:16px;
-  padding:16px 16px 18px; text-align:center;
-  box-shadow:0 8px 26px rgba(2,12,27,.06);
-  transition:transform .12s ease, box-shadow .12s ease;
-}
-.partner-card:hover{ transform:translateY(-2px); box-shadow:0 12px 34px rgba(2,12,27,.10); }
-
-.partner-card .img-wrap{
-  width:100%; aspect-ratio:4/3; overflow:hidden; border-radius:12px;
-  background:
-    radial-gradient(600px 300px at 20% 15%, rgba(34,193,195,.15), transparent 40%),
-    radial-gradient(600px 300px at 80% 0%, rgba(124,58,237,.15), transparent 40%);
-}
-.partner-card img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-.partner-role{ margin-top:14px; font-weight:700; color:#111827; }
-.partner-name{ margin-top:6px; font-weight:800; font-size:20px; }
-.partner-affil{ margin-top:4px; color:var(--muted); }
-
-/* ===== Partners (compact 4-cards) ===== */
-.partners-hero { max-width:1100px; margin:22px auto 12px; }
-
-.partners-grid{
-  max-width:1100px; margin:0 auto 40px; padding:0 18px;
-  display:grid; gap:28px;
-}
-.partners-grid.compact{
-  /* 한 카드가 대략 220~260px로 작게 배치되어 4명이 균일하게 보임 */
-  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-  gap:22px;
-}
-
-.partner-card{
-  background:linear-gradient(180deg,#ffffff,#f8fbff);
-  border:1px solid #e6efff; border-radius:16px;
-  padding:14px; text-align:center;
-  box-shadow:0 8px 22px rgba(2,12,27,.06);
-  transition:transform .12s ease, box-shadow .12s ease;
-}
-.partner-card:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(2,12,27,.10); }
-
-/* --- Portrait controls (팀원/파트너 공통) --- */
-/* 세로 프레임을 4:5로, 카드별로 --scale / --headroom 값으로 미세 조정 */
-.partner-card .img-wrap{
-  width: 100%;
-  aspect-ratio: 4 / 5;           /* 머리 공간 확보: 세로형 프레임 */
+/* =========================================================
+   Explicit Hero Section (선택적)
+   - 페이지가 자체적으로 .hero-visual 섹션을 갖는 경우의 스타일
+   ========================================================= */
+.hero-visual{
+  position: relative;
   overflow: hidden;
-  border-radius: 12px;
-  /* 배경은 기존 파스텔 그라디언트 유지 */
+  min-height: var(--hero-height);
+  display: flex;
+  align-items: center;
+  isolation: isolate;
+  border-bottom:1px solid var(--border);
+}
+.hero-visual .hero-bg{
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(1200px 400px at 10% 0%, rgba(0,255,234,.25), transparent 55%),
+    radial-gradient(1200px 400px at 100% -10%, rgba(124,58,237,.28), transparent 55%),
+    linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.65) 48%, rgba(2,8,20,.92) 85%, #0b111a 100%),
+    url("./assets/customer/namgeuk.jpg");
+  background-size: 100% 100%, 100% 100%, 100% 100%, cover;
+  background-position: center, center, center, 50% 25%;
+  background-repeat: no-repeat;
+  filter: saturate(.95) contrast(1.02);
+  z-index: -1;
+}
+.hero-inner{ padding: 90px 0 120px }
+.eyebrow{ color: var(--accent); letter-spacing:.4px; font-weight:700; margin:0 0 8px }
+.hero-visual h1{
+  margin:0 0 10px; line-height:1.12;
+  font-size: clamp(34px, 5vw, 56px);
+}
+.hero-visual .sub{ margin:10px 0 20px; color:var(--muted); font-size: clamp(15px, 1vw + 12px, 18px) }
+.badges{ margin:18px 0 0; padding:0; list-style:none; display:flex; gap:8px; flex-wrap:wrap }
+.badges li{
+  border:1px solid var(--border); color:var(--muted);
+  padding:6px 10px; border-radius:999px; font-size:12px; background:#0f1422;
+}
+
+/* =========================================================
+   Sections / How / Metrics (Dark)
+   ========================================================= */
+.section{ padding:72px 0 }
+.section-title{ margin:0 0 24px; font-size: clamp(22px, 2vw + 14px, 32px) }
+.center{ text-align:center }
+.muted{ color:var(--muted) }
+
+.cards{ display:grid; grid-template-columns: repeat(4, 1fr); gap:16px }
+.card .icon{ font-size:20px; opacity:.9 }
+.card h3{ margin:8px 0 6px; font-size:18px }
+.card p{ margin:0; color:var(--muted) }
+
+.how{
+  display:grid; grid-template-columns: repeat(3,1fr); gap:18px; counter-reset: step;
+  list-style:none; margin:0; padding:0;
+}
+.how li{
+  background: var(--card); border:1px solid var(--border); border-radius:14px; padding:18px; position:relative
+}
+.how li::before{
+  counter-increment: step;
+  content: counter(step);
+  position:absolute; top:12px; right:14px;
+  width:28px; height:28px; display:grid; place-items:center;
+  color:#0c0f17; background:var(--accent); border-radius:999px; font-weight:800; font-size:14px;
+}
+.how span{ color:var(--muted); display:block; margin-top:6px }
+
+.metrics{
+  display:grid; grid-template-columns: repeat(3,1fr); gap:16px; margin: 10px 0 8px;
+}
+.metric{
+  background: var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; text-align:center
+}
+.metric .num{
+  font-size: clamp(22px, 2vw + 16px, 34px);
+  font-weight:800; letter-spacing:.2px;
+}
+.metric .cap{ color:var(--muted); margin-top:6px }
+
+/* =========================================================
+   Partners / Customers (Dark)
+   ========================================================= */
+.partners-hero{ max-width:1100px; margin:22px auto 12px; }
+.partners-grid{ max-width:1100px; margin:0 auto 40px; padding:0 18px; display:grid; gap:22px; }
+.partners-grid.compact{ grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); }
+
+.partner-card{
+  background:linear-gradient(180deg, #121829, #0f1422);
+  border:1px solid var(--border); border-radius:16px;
+  padding:14px; text-align:center;
+  box-shadow: var(--shadow);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.partner-card:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(0,0,0,.35); }
+.partner-card .img-wrap{
+  width:100%; aspect-ratio:4/5; overflow:hidden; border-radius:12px;
   background:
     radial-gradient(600px 300px at 20% 15%, rgba(34,193,195,.12), transparent 40%),
     radial-gradient(600px 300px at 80% 0%,  rgba(124,58,237,.12), transparent 40%);
-
-  /* 카드별 기본값(필요 시 HTML에서 override) */
-  --scale: 1;        /* 1 = 원본 크기, 0.92 = 8% 축소 */
-  --headroom: 15%;   /* 위 여백 비율(작을수록 상단으로 치우침) */
+  --scale:1; --headroom:15%;
 }
-
 .partner-card .img-wrap img{
-  width: 100%;
-  height: 100%;
-  object-fit: cover;                 /* 프레임을 꽉 채움 */
-  object-position: 50% var(--headroom);
-  transform: scale(var(--scale));    /* 축소/확대 */
+  width:100%; height:100%; object-fit:cover;
+  object-position:50% var(--headroom); transform:scale(var(--scale));
   transition: transform .2s ease, object-position .2s ease;
 }
-
-.partner-role{ margin-top:12px; font-weight:700; color:#111827; font-size:14px; }
-.partner-name{ margin-top:6px; font-weight:800; font-size:18px; }
+.partner-role{ margin-top:12px; font-weight:700; color:#dbe3ff; font-size:14px; }
+.partner-name{ margin-top:6px; font-weight:800; font-size:18px; color:#fff; }
 .partner-affil{ margin-top:6px; color:var(--muted); font-size:13px; line-height:1.35; }
-.menu a.active{ font-weight:800; color:#1f2937; border-bottom:2px solid #7c3aed; }
 
-
-/* ===== Customers page ===== */
-.customers-grid {
-  max-width: 1100px;
-  margin: 0 auto 40px;
-  padding: 0 18px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3명씩 가로 */
-  gap: 28px;
-  align-items: start; /* 높이가 서로 달라도 위쪽 정렬 */
+.customers-grid{
+  max-width:1100px; margin:0 auto 40px; padding:0 18px;
+  display:grid; grid-template-columns: repeat(3, 1fr); gap:28px; align-items:start;
 }
-
-.customer-card {
-  background: linear-gradient(180deg, #ffffff, #f8fbff);
-  border: 1px solid #e6efff;
-  border-radius: 16px;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 8px 26px rgba(2, 12, 27, 0.06);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-
-  /* 고정 높이 제거 → 내용에 따라 자동으로 늘어남 */
-  /* height: 350px;  <- 삭제 */
-  min-height: 150px; /* 기준 높이만 두고 */
-  height: auto;
-
-  display: flex;
-  flex-direction: column;
+.customer-card{
+  background:linear-gradient(180deg, #121829, #0f1422);
+  border:1px solid var(--border); border-radius:16px;
+  padding:16px; text-align:center; box-shadow: var(--shadow);
+  transition: transform .12s ease, box-shadow .12s ease;
+  min-height:150px; height:auto; display:flex; flex-direction:column;
 }
-
-.customer-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 34px rgba(2, 12, 27, 0.10);
-}
-
-.customer-card .img-wrap {
-  width: 100%;
-  aspect-ratio: 1 / 1; /* 정사각형 */
-  overflow: hidden;
-  border-radius: 12px;
+.customer-card:hover{ transform: translateY(-2px); box-shadow:0 12px 34px rgba(0,0,0,.35) }
+.customer-card .img-wrap{
+  width:100%; aspect-ratio:1/1; overflow:hidden; border-radius:12px;
   background:
-    radial-gradient(600px 300px at 20% 15%, rgba(34, 193, 195, 0.12), transparent 40%),
-    radial-gradient(600px 300px at 80% 0%, rgba(124, 58, 237, 0.12), transparent 40%);
-
-  --scale: 0.5;
-  --headroom: 50%; /* ← 기존 10%에서 줄여서 사진을 살짝 위로 올림 */
+    radial-gradient(600px 300px at 20% 15%, rgba(34,193,195,.12), transparent 40%),
+    radial-gradient(600px 300px at 80% 0%, rgba(124,58,237,.12), transparent 40%);
+  --scale:.5; --headroom:50%;
 }
-
-.customer-card .img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% var(--headroom);
-  transform: scale(var(--scale));
+.customer-card .img-wrap img{
+  width:100%; height:100%; object-fit:cover;
+  object-position:50% var(--headroom); transform:scale(var(--scale));
   transition: transform .2s ease, object-position .2s ease;
 }
+.customer-info{ margin-top:14px; font-size:14px; color:var(--muted); }
+.customer-name{ font-weight:700; color:#fff; font-size:16px; margin-top:10px; }
+.customer-country,.customer-university,.customer-wallet{ color:#a9b1d1; font-size:13px; margin-top:4px; }
+.customer-wallet{ word-break: break-all; }
 
-.customer-info {
-  margin-top: 14px;
-  font-size: 14px;
-  color: var(--muted);
+/* =========================================================
+   Footer (Dark)
+   ========================================================= */
+footer, .site-footer{
+  border-top:1px solid var(--border);
+  background:#0b0f16; color:var(--muted);
 }
+.foot{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:18px 0; }
+.foot a{ color:var(--muted) }
+.foot a:hover{ color:var(--text) }
 
-.customer-name {
-  font-weight: 700;
-  color: #111827;
-  font-size: 16px;
-  margin-top: 10px;
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 980px){
+  :root{ --hero-height: 420px; }
+  .grid{ grid-template-columns:1fr }
+  .cards{ grid-template-columns:1fr 1fr }
+  .how{ grid-template-columns:1fr }
+  .metrics{ grid-template-columns:1fr }
+  .customers-grid{ grid-template-columns:1fr 1fr }
 }
-
-.customer-country,
-.customer-university,
-.customer-wallet {
-  color: #6b7280;
-  font-size: 13px;
-  margin-top: 4px;
+@media (max-width: 640px){
+  .cards{ grid-template-columns:1fr }
+  .customers-grid{ grid-template-columns:1fr }
 }
-
-/* 긴 문자열 대응(필요 시) */
-.customer-wallet { word-break: break-all; }
+@media (prefers-reduced-motion: reduce){
+}

@@ -4,34 +4,78 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>홈 · FrozenClock SBT</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta name="description" content="PoA 전용망과 SBT 기반 VaultContract, PQC 전환 로드맵을 갖춘 Quantum‑Ready 장기 자산 보존 네트워크" />
+  <link rel="stylesheet" href="./style.css" />   <!-- 공용(라이트) -->
+  <link rel="stylesheet" href="./home.css" />    <!-- 홈 전용(다크+히어로) -->
 </head>
-<body>
+
+<body class="home">
   <header class="app-header">
     <div class="hdr-left">
       <h1>FrozenClock SBT</h1>
       <nav class="menu">
-        <a href class="active">홈</a>
+        <a href="./index.html" class="active">홈</a>
         <a href="./sbt.html">SBT 제작</a>
         <a href="./team.html">팀원 소개</a>
         <a href="./partners.html">파트너</a>
-        <a href="./customers.html" >고객</a>
+        <a href="./customers.html">고객</a>
         <a href="./resources.html">리소스</a>
         <a href="./jobs.html">채용</a>
       </nav>
     </div>
+    <div class="hdr-right">
+      <a class="btn ghost" href="./customers.html#contact">문의하기</a>
+    </div>
   </header>
 
-  <main class="container">
-    <section class="card">
-      <h2>환영합니다</h2>
-      <p class="muted">FrozenClock SBT 데모/서비스 허브입니다. 상단 메뉴 또는 아래 버튼으로 이동하세요.</p>
+  <main>
+    <!-- ===== 히어로(배경: namgeuk.jpg + 그라디언트 오버레이) ===== -->
+    <section class="hero hero-visual">
+      <div class="hero-bg" aria-hidden="true"></div>
+
+      <div class="container hero-inner">
+        <p class="eyebrow">PoA 전용망 · SBT · PQC</p>
+        <h1>양자 시대까지 살아남는<br>자산 보존 네트워크</h1>
+        <p class="sub">
+          SBT 기반 <strong>VaultContract</strong>로 <strong>조건부 자산 보존·복원</strong>을 설계하고,
+          <strong>PQC(양자내성암호)</strong> 전환 경로를 제공합니다.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="./sbt.html#demo">SBT 생성</a>
+          <a class="btn outline"  href="./resources.html">문서 & 리서치</a>
+        </div>
+
+        <ul class="badges" role="list">
+          <li>PoA Devnet</li>
+          <li>VaultContract</li>
+          <li>PQC WASM 실험</li>
+        </ul>
+      </div>
     </section>
 
+    <!-- 아래 섹션은 필요에 따라 유지/삭제 -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">왜 FrozenClock인가</h2>
+        <div class="cards">
+          <article class="card"><div class="icon">🧭</div><h3>조건부 보존·복원</h3><p>TimeLock·오라클·승인을 조합해 안전한 언락을 설계합니다.</p></article>
+          <article class="card"><div class="icon">🔗</div><h3>SBT & 가디언</h3><p>전송/상속 불가 SBT와 가디언 복구로 장기 키 리스크를 완화합니다.</p></article>
+          <article class="card"><div class="icon">🛡️</div><h3>Quantum‑Ready</h3><p>Dilithium/Falcon/SPHINCS+ 적합도 평가로 서명 전환 경로를 확보.</p></article>
+          <article class="card"><div class="icon">📦</div><h3>롱텀 퍼시스턴스</h3><p>Standalone PoA + 앵커링 전략으로 비용·영속성을 균형화.</p></article>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer>
-    <div>© FrozenClock</div>
+  <footer class="site-footer">
+    <div class="container foot">
+      <div>© FrozenClock</div>
+      <nav>
+        <a href="./resources.html">문서</a>
+        <a href="./resources.html#security">보안 정책</a>
+        <a href="./jobs.html">채용</a>
+      </nav>
+    </div>
   </footer>
 </body>
 </html>
