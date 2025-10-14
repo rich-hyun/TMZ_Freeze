@@ -32,8 +32,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          # index.html이 web 폴더에 있으므로 web 폴더 전체를 업로드함
-          path: ./web
+          # index.html??web ?�더???�으므�?web ?�더 ?�체�??�로?�함
+          path: ./C_jhkim/web
 
       - name: Deploy to GitHub Pages
         id: deployment
